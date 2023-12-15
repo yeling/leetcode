@@ -1,0 +1,33 @@
+4
+5
+01110
+10 5 8 9 6
+6
+011011
+20 10 9 30 20 19
+4
+0000
+100 100 100 100
+4
+0111
+5 4 5 1
+# auther yeling
+from typing import List
+import math
+
+class Solution:
+    def begin(self, n: int, nums :List[int]) :
+        print(n , nums)
+        return 0
+
+sol = Solution()
+
+
+caseNum = int(input())
+for i in range(0, caseNum):
+    allnums = (input()).split(' ')
+    nums = []
+    for _, t in allnums:
+        nums.append(int(t))
+    sol.begin(i, nums)
+   
