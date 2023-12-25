@@ -1,0 +1,77 @@
+# auther yeling
+import sys
+from typing import List
+from bisect import *
+from collections import *
+from functools import *
+from itertools import *
+from math import *
+from queue import PriorityQueue
+from heapq import *
+import string
+from os import path
+
+INF = 2 ** 64 - 1
+MOD = 10 ** 9 + 7
+YES="Yes"
+NO="No"
+
+
+# for I/O for local system
+if(path.exists('input.txt')):
+    sys.stdin = open("input.txt","r")
+    # sys.stdout = open("output.txt","w")
+
+# For fast I/O
+# input = sys.stdin.buffer.readline
+# input = sys.stdin.readline
+# print = sys.stdout.write
+
+input = lambda: sys.stdin.readline().rstrip()
+si = lambda :int(input())
+mi = lambda :map(int,input().split())
+li = lambda :list(mi())
+
+def solve2(n, k, a, b):
+    all = a + b
+    all.sort(reverse = True)
+    b.sort(reverse = True)
+    ans = 0
+    i = 0
+    # print(all)
+    while i < k and i < len(all):
+        ans += all[i]
+        i += 1
+        
+    if i < k:
+        ans += (k - i) * b[0]
+    print(ans)
+
+    return 
+
+def solve(n, k, a, b):
+    mb = 0
+    ans = 0
+    sa = 0
+    for i in range(n):
+        if i >= k:
+            break
+        sa += a[i]
+        mb = max(mb, b[i])
+        temp = sa + (k - (i + 1)) * mb
+        ans = max(ans, temp)
+
+    print(ans)
+
+
+    return 
+
+
+caseNum = int(input())
+for i in range(0, caseNum):
+    n,k = li()
+    a = li()
+    b = li()
+    solve(n, k, a, b)
+
+   
