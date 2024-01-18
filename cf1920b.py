@@ -32,35 +32,29 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-# Wrong answer on pretest 3
-
-def solve(n, k, d, a, v):
-    ans = 0
-    temp = 0
-    for i in range(n):
-        if a[i] == i + 1:
-            temp += 1
-    ans = max(ans, temp + (d - 1)//2)
-    # 这里是2n的原因，可能k里面都是1，每次都操作1，所以N是不行的
-    # 2n所有数字都走两次了，不可能更大了
-    for i in range(min(2*n,d - 1)):
-        pos = v[i%k]
-        temp = 0
-        end = min(n, pos)
-        for j in range(end):
-            a[j] += 1
-        for j in range(n):
-            if a[j] == j + 1:
-                temp += 1
-        ans = max(ans, temp + (d - (i + 1) - 1)//2)
+def solve(n, k, x, nums):
+    nums.sort(reverse = True)
+    ans = -INF
+    pre = [0] * (n + 1)
+    
+    for i,v in enumerate(nums):
+        pre[i + 1] = pre[i] + v
+    s = pre[n]
+    for i in range(k + 1):
+        r = min(i - 1 + x, n - 1)
+        temp = s - pre[i] - 2 * (pre[r + 1] - pre[i])
+        ans = max(ans, temp)
     print(ans)
+        
+        
+
+    # print(nums)
     return 
 
 caseNum = int(input())
 for i in range(0, caseNum):
-    n,k,d = li()
-    a = li()
-    v = li()
-    solve(n, k, d, a, v)
+    n,k,x = li()
+    nums = li()
+    solve(n, k, x, nums)
 
    
