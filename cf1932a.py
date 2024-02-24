@@ -32,24 +32,31 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-def solve(n, a, b, c):
-    # print(n)
-    for i in range(n):
-        if a[i] == b[i] and a[i] != c[i]:
-            print(YES)
-            return
-        elif a[i] != b[i] and a[i] != c[i] and b[i] != c[i]:
-            print(YES)
-            return
-    print(NO)
+def solve(n, s):
+    dp = [0] * n
+    # print(s)
+    ans = 0
+    for i in range(1,n):
+        if s[i] == '.':
+            dp[i] = max(dp[i], dp[i - 1])
+            if i - 2 >= 0:
+                dp[i] = max(dp[i], dp[i - 2])
+        elif s[i] == '@':
+            dp[i] = max(dp[i], dp[i - 1] + 1)
+            if i - 2 >= 0:
+                dp[i] = max(dp[i], dp[i - 2] + 1)
+        ans = max(ans, dp[i])
+        if s[i - 1] == '*' and s[i] == '*':
+            break
+
+    print(ans)
+
     return 
 
 caseNum = int(input())
 for i in range(0, caseNum):
     n = int(input())
-    a = input()
-    b = input()
-    c = input()
-    solve(n, a, b, c)
+    s = input()
+    solve(n, s)
 
    

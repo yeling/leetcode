@@ -32,24 +32,39 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-def solve(n, a, b, c):
+def solve2(n, a, b):
     # print(n)
+    ra = []
+    rb = []
+    la = []
     for i in range(n):
-        if a[i] == b[i] and a[i] != c[i]:
-            print(YES)
-            return
-        elif a[i] != b[i] and a[i] != c[i] and b[i] != c[i]:
-            print(YES)
-            return
-    print(NO)
+        if a[i] == b[i]:
+            la.append(a[i])
+        else:
+            ra.append(a[i])
+            rb.append(b[i])
+    la.sort()
+    ra += la
+    rb += la
+    print(*ra)
+    print(*rb)
+    return 
+
+def solve(n, a, b):
+    # print(n)
+    pa = [(v,i) for i,v in enumerate(a)]
+    pa.sort()
+    ra = list(range(1,n + 1))
+    rb = [b[v[1]] for v in pa]
+    print(*ra)
+    print(*rb)
     return 
 
 caseNum = int(input())
 for i in range(0, caseNum):
     n = int(input())
-    a = input()
-    b = input()
-    c = input()
-    solve(n, a, b, c)
+    a = li()
+    b = li()
+    solve(n, a, b)
 
    

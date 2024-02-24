@@ -32,24 +32,23 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-def solve(n, a, b, c):
-    # print(n)
-    for i in range(n):
-        if a[i] == b[i] and a[i] != c[i]:
-            print(YES)
+def solve(n, nums):
+    s = sum(nums)
+    av = s//n
+    de = 0
+    for v in nums:
+        de += v - av
+        if de < 0:
+            print(NO)
             return
-        elif a[i] != b[i] and a[i] != c[i] and b[i] != c[i]:
-            print(YES)
-            return
-    print(NO)
+    print(YES)
+
+    # print(n, nums)
     return 
 
 caseNum = int(input())
 for i in range(0, caseNum):
     n = int(input())
-    a = input()
-    b = input()
-    c = input()
-    solve(n, a, b, c)
-
+    nums = li()
+    solve(n, nums)
    

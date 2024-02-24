@@ -32,24 +32,31 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-def solve(n, a, b, c):
-    # print(n)
+def solve(n, k, nums, ks):
+    # print(n, k, nums)
+    cache = defaultdict(int)
     for i in range(n):
-        if a[i] == b[i] and a[i] != c[i]:
-            print(YES)
+        if ks[i] < 0:
+            cache[(-ks[i]) + (10**9)] += nums[i]
+        else:
+            cache[ks[i] + (10 ** 9)] += nums[i]
+    kes = list(cache.keys())
+    kes.sort()
+    
+    s = 0
+    for v in kes:
+        s += cache[v]
+        if s > (v - (10 ** 9)) * k:
+            print(NO)
             return
-        elif a[i] != b[i] and a[i] != c[i] and b[i] != c[i]:
-            print(YES)
-            return
-    print(NO)
+    print(YES)
     return 
 
 caseNum = int(input())
 for i in range(0, caseNum):
-    n = int(input())
-    a = input()
-    b = input()
-    c = input()
-    solve(n, a, b, c)
+    n,k = li()
+    nums = li()
+    ks = li()
+    solve(n, k, nums, ks)
 
    

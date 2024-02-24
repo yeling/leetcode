@@ -32,11 +32,48 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-def solve():
+def solve(n, nums, m, grid):
+    #从前往后
+    pre = [0] * (n)
+    #从后往前
+    suff = [0] * (n)
+    for i in range(1,n):
+        if i == 1:
+            pre[i] = pre[i - 1] + 1
+        else:
+            if (nums[i] - nums[i - 1]) < (nums[i - 1] - nums[i - 2]):
+                pre[i] = pre[i - 1] + 1
+            else:
+                pre[i] = pre[i - 1] + nums[i] - nums[i - 1]
+        
+
+    for i in range(n-2, -1, -1):
+        if i == n - 2:
+            suff[i] = suff[i + 1] + 1
+        else:
+            if (nums[i + 1] - nums[i]) < (nums[i + 2] - nums[i + 1]):
+                suff[i] = suff[i + 1] + 1
+            else:
+                suff[i] = suff[i + 1] + nums[i + 1] - nums[i]
+        
+
+    # print(pre, suff)
+    for x,y in grid:
+        if x > y:
+            print(suff[y - 1] - suff[x - 1])
+        else:
+            print(pre[y - 1] - pre[x - 1])
+
     return 
 
 caseNum = int(input())
 for i in range(0, caseNum):
     n = int(input())
+    nums = li()
+    m = int(input())
+    grid = []
+    for _ in range(m):
+        grid.append(li())
+    solve(n, nums, m, grid)
 
    

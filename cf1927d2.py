@@ -32,24 +32,28 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-def solve(n, a, b, c):
-    # print(n)
-    for i in range(n):
-        if a[i] == b[i] and a[i] != c[i]:
-            print(YES)
-            return
-        elif a[i] != b[i] and a[i] != c[i] and b[i] != c[i]:
-            print(YES)
-            return
-    print(NO)
+def solve(n, a, q, grid):
+    pre = [0] * (n + 1)
+    for i in range(n-1):
+        pre[i + 1] = pre[i]
+        if a[i] != a[i + 1]:
+            pre[i + 1] += 1
+    
+    ans = []
+    for l,r in grid:
+        
+
+            
     return 
 
 caseNum = int(input())
 for i in range(0, caseNum):
     n = int(input())
-    a = input()
-    b = input()
-    c = input()
-    solve(n, a, b, c)
+    a = li()
+    q = si()
+    grid = []
+    for _ in range(q):
+        grid.append(li())
+    solve(n, a, q, grid)
+    print()
 
-   

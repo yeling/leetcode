@@ -32,24 +32,39 @@ si = lambda :int(input())
 mi = lambda :map(int,input().split())
 li = lambda :list(mi())
 
-def solve(n, a, b, c):
-    # print(n)
-    for i in range(n):
-        if a[i] == b[i] and a[i] != c[i]:
-            print(YES)
-            return
-        elif a[i] != b[i] and a[i] != c[i] and b[i] != c[i]:
-            print(YES)
-            return
-    print(NO)
+def solve(n, x, y, nums):
+    cache = defaultdict(list)
+    for i,v in enumerate(nums):
+        de = v % y
+        cache[de ^ INF].append(v)
+    ans = 0
+
+    for k in cache:
+        temp = cache[k]
+        xcache = defaultdict(int)
+        # print(k^INF, temp)
+        for v in temp:
+            ans += xcache[((x - v%x)%x)^INF]
+            xcache[(v%x)^INF] += 1
+
+
+    
+    print(ans)
     return 
+
+def check(n, x, y, nums):
+    ans = 0
+    for i in range(n):
+        for j in range(i + 1,n):
+            if (nums[i] + nums[j])%x == 0 and (nums[i] - nums[j])%y == 0:
+                ans += 1
+    print(ans)
 
 caseNum = int(input())
 for i in range(0, caseNum):
-    n = int(input())
-    a = input()
-    b = input()
-    c = input()
-    solve(n, a, b, c)
+    n,x,y = li()
+    nums = li()
+    solve(n, x, y, nums)
+    # check(n, x, y, nums)
 
    
